@@ -9,6 +9,7 @@ else:
     from urlparse import parse_qsl
 
 import xbmcgui
+import xbmcvfs
 import xbmcplugin
 import xbmcaddon
 import xbmc
@@ -44,7 +45,7 @@ class Router(object):
         self._cs_api = cs.CuriosityStream(
             username=xbmcaddon.Addon().getSetting("username"),
             password=xbmcaddon.Addon().getSetting("password"),
-            profile_path=xbmc.translatePath(xbmcaddon.Addon().getAddonInfo("profile")),
+            profile_path=xbmcvfs.translatePath(xbmcaddon.Addon().getAddonInfo("profile")),
             auth_context=authorize_context,
         )
         # ensure the user is logged in by calling my_account api
