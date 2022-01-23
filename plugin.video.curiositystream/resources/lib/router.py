@@ -13,6 +13,7 @@ import xbmcvfs
 import xbmcplugin
 import xbmcaddon
 import xbmc
+import traceback
 from resources.lib import curiositystream as cs
 
 tr = xbmcaddon.Addon().getLocalizedString
@@ -35,6 +36,7 @@ def authorize_context():
         xbmcgui.Dialog().ok(tr(30002), e.error_message)
     except Exception as e:
         dialog.close()
+        xbmc.log(traceback.format_exc(), xbmc.LOGERROR)
         xbmcgui.Dialog().ok(tr(30002), "Internal error: {}".format(str(e)))
 
 
