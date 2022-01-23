@@ -6,6 +6,7 @@ from math import floor
 import requests
 import xbmc
 import xbmcgui
+import traceback
 
 
 class CSAuthFailed(Exception):
@@ -116,9 +117,12 @@ class CuriosityStream(object):
                     session["cookies"]
                 )
                 self._session.headers.update(session["headers"])
-        except IOError:
-            # unable to read the file
+        except FileNotFoundError:
+            # session just didn't exist yet
             pass
+        except:
+            # other errors are potentially a problem, so log a warning.
+            xbmc.log(traceback.format_exc(), xbmc.LOGWARNING)
 
     def authenticate(self, force=False):
         if (
